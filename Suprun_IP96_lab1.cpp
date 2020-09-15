@@ -6,5 +6,6 @@ using namespace std;
 int main(){
   string name = "smallTest.txt";
   ReadDevide firstPhase(name);
-  firstPhase.numberSequences();
+  int i = firstPhase.numberSequences(name);
+  cout<<i;
 }

@@ -8,7 +8,7 @@ using namespace std;
  class ReadDevide{
  public:
   ReadDevide(string name);
-  int numberSequences();//number of sequences in the source file
+  int numberSequences(string title);//number of sequences in the source file
 
 string name;
 string file1;
