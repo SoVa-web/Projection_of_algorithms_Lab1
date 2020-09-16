@@ -68,7 +68,6 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
         if(fout.is_open()){//open start file
              if(t == 1){
                   while(now<=sequence[sequence.size()-t-1] ){
-                      cout<<sequence[sequence.size()-t-1];
                          if(!fin.eof()){
                               fin>>boof2;
                           if(boof2<=boof1){
@@ -77,14 +76,11 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
                           }
                         boof1=boof2;
                         fout<<boof2;
-                        fout<<" ";
-                        
-                         }}
+                        fout<<" ";}}
                              fout<<" . ";
                              now++;
              }else{
                   while(now<sequence[sequence.size()-t-1] ){
-                    cout<<sequence[sequence.size()-t-1];
                     if(!fin.eof()){
                         fin>>boof2;
                      if(boof2<=boof1){

@@ -1,5 +1,6 @@
 #include<iostream>
 #include"ReadDevide.h"
+#include"Draining.h"
 
 using namespace std;
 
@@ -12,4 +13,6 @@ int main(){
     cout<<sequence[j]<<endl;
   }
   firstPhase.devideForFirstPhase(sequence);
+  Draining Drain(firstPhase);
+  cout<<Drain.Files.numberFiles;
 }
