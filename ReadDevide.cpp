@@ -27,3 +27,22 @@ int ReadDevide::numberSequences(string title){
     }
     return number;
 }
+
+vector<int> ReadDevide::sequenceFibonacci(int numberSeries){
+    vector<int> sequence;
+    int degreeFibonacci = this->numberFiles-2;//using formul p = m-2, m - number files, p - degree Fibonacci
+    for(int i =0; i < degreeFibonacci; i++){
+       sequence.push_back(0);
+    }
+    sequence.push_back(1);
+    while(sequence[sequence.size()-1]<numberSeries){
+        int n = 0;
+        int t = 0;
+        for(int i =0; i < degreeFibonacci+1; i++){
+            n+=(sequence[sequence.size()-1-t]);
+            t++;
+        }
+        sequence.push_back(n);
+    }
+    return sequence;
+}
