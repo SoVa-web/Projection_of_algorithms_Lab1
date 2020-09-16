@@ -5,6 +5,8 @@
 #include<vector>
 #include"ReadDevide.h"
 
+using namespace std;
+
 class Draining{
 
 public:
