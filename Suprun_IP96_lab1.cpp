@@ -18,5 +18,4 @@ int main(){
   for(int j =0; j <Drain.numberSeriesInFileS.size(); j++){
     cout<<Drain.numberSeriesInFileS[j]<<endl;
   }
-
 }

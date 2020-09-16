@@ -67,6 +67,7 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
         fout.open(setFiles[i]);
         if(fout.is_open()){//open start file
              if(t == 1){
+                 fout<<boof1;
                   while(now<=sequence[sequence.size()-t-1] ){
                          if(!fin.eof()){
                               fin>>boof2;
@@ -75,7 +76,7 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
                           fout<<" . ";
                           }
                         boof1=boof2;
-                        fout<<boof2;
+                        fout<<boof1;
                         fout<<" ";}}
                              fout<<" . ";
                              now++;
@@ -88,7 +89,7 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
                         fout<<" . ";
                          }
                      boof1=boof2;
-                     fout<<boof2;
+                     fout<<boof1;
                      fout<<" ";
                     }else{
                         fout<<" . ";
@@ -97,4 +98,7 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
         fout.close();
         t++; }
      fin.close();}
+     ofstream fout;
+     fout.open(this->setFiles[this->setFiles.size()-1]);
+     fout.close();
 }
