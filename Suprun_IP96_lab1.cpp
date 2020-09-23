@@ -1,4 +1,5 @@
 #include<iostream>
+#include<istream>
 #include"ReadDevide.h"
 #include"Draining.h"
 
@@ -9,20 +10,22 @@ int main(){
   ReadDevide firstPhase(name);
   firstPhase.numberSequences();
   vector<int> sequence = firstPhase.sequenceFibonacci();
-  /*for(int j =0; j < sequence.size(); j++){
-    cout<<sequence[j]<<endl;
-  }*/
   firstPhase.devideForFirstPhase(sequence);
   Draining Drain(firstPhase);
-  //Drain.numberSeriesInFile();
-  /*for(int j =0; j <Drain.numberSeriesInFileS.size(); j++){
-    cout<<Drain.numberSeriesInFileS[j]<<endl;
-  }*//*Drain.numberSeriesInFile();
-  Drain.checkFull();
-  cout<<Drain.fullFile[0]<<endl;
-    cout<<Drain.fullFile[1]<<endl;
-    cout<<Drain.fullFile[2]<<endl;
-    cout<<Drain.fullFile[3]<<endl;*/
-  Drain.algorithm();
-  
+  ifstream fin;
+  fin.open(name);
+  string a;
+  getline(fin,a,' ');
+  //cout<<a<<77777<<endl;
+  int b = fin.tellg();
+  //cout<<b<<endl;
+  a = "";
+  fin.close();
+  ifstream in;
+  in.open(name);
+  in.seekg(b,ios::beg);
+  getline(in,a,' ');
+  //cout<<a<<77777<<endl;
+  in.close();
+
 }

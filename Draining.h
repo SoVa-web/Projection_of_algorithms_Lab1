@@ -15,18 +15,10 @@ public:
 Draining(){};
  Draining(ReadDevide& StartFiles);
  void numberSeriesInFile();
- void draining();
- void checkFull();
- int minMerg();
- void mergeInFirst();
- void mergeInSecond();
- void mergeInThird();
- void mergeInFourth();
- void algorithm();
- 
-
+ void funcForMerging();
+ bool result();
  
  ReadDevide Files;
  vector<int> numberSeriesInFileS;
- bool* fullFile;
+ 
 };
