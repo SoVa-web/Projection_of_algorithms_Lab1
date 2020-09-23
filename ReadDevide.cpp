@@ -73,12 +73,12 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
                               fin>>boof2;
                           if(boof2<=boof1){
                           now++;
-                          fout<<" . ";
+                          fout<<".";
                           }
                         boof1=boof2;
                         fout<<boof1;
-                        fout<<" ";}}
-                             fout<<" . ";
+                        fout<<"_";}}
+                             fout<<".";
                              now++;
              }else{
                   while(now<sequence[sequence.size()-t-1] ){
@@ -86,13 +86,13 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
                         fin>>boof2;
                      if(boof2<=boof1){
                         now++;
-                        fout<<" . ";
+                        fout<<".";
                          }
                      boof1=boof2;
                      fout<<boof1;
-                     fout<<" ";
+                     fout<<"_";
                     }else{
-                        fout<<" . ";
+                        fout<<".";
                         now++;
                     } } }}
         fout.close();

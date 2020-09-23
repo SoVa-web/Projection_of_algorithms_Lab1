@@ -4,6 +4,7 @@
 #include<string>
 #include<vector>
 #include<cstdlib>
+#include <stdlib.h>
 #include"ReadDevide.h"
 
 using namespace std;
@@ -17,6 +18,11 @@ Draining(){};
  void draining();
  void checkFull();
  int minMerg();
+ void mergeInFirst();
+ void mergeInSecond();
+ void mergeInThird();
+ void mergeInFourth();
+ void algorithm();
  
 
  
