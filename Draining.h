@@ -17,8 +17,10 @@ Draining(){};
  void numberSeriesInFile();
  void funcForMerging();
  bool result();
+ int minNumberSeries();
  
  ReadDevide Files;
  vector<int> numberSeriesInFileS;
+ const int maxNumber = 1000000;
  
 };

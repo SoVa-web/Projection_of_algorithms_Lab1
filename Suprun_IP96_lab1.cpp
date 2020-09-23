@@ -12,7 +12,8 @@ int main(){
   vector<int> sequence = firstPhase.sequenceFibonacci();
   firstPhase.devideForFirstPhase(sequence);
   Draining Drain(firstPhase);
-  ifstream fin;
+  Drain.funcForMerging();
+  /*ifstream fin;
   fin.open(name);
   string a;
   getline(fin,a,' ');
@@ -26,6 +27,6 @@ int main(){
   in.seekg(b,ios::beg);
   getline(in,a,' ');
   //cout<<a<<77777<<endl;
-  in.close();
+  in.close();*/
 
 }
