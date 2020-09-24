@@ -48,13 +48,13 @@ void Draining::funcForMerging(){
         sources.push_back(i);
       }
     }
-    ifstream in0, in1, in2;//files that we merge
-    in0.open(this->Files.setFiles[sources[0]]);
-    in1.open(this->Files.setFiles[sources[1]]);
-    in2.open(this->Files.setFiles[sources[2]]);
-    in0.seekg(positions[sources[0]],ios::beg);
-    in1.seekg(positions[sources[1]],ios::beg);
-    in2.seekg(positions[sources[2]],ios::beg);
+    ifstream in[3];//files that we merge
+    in[0].open(this->Files.setFiles[sources[0]]);
+    in[1].open(this->Files.setFiles[sources[1]]);
+    in[2].open(this->Files.setFiles[sources[2]]);
+    in[0].seekg(positions[sources[0]],ios::beg);
+    in[1].seekg(positions[sources[1]],ios::beg);
+    in[2].seekg(positions[sources[2]],ios::beg);
     ofstream out;//in this file merge
     out.open(this->Files.setFiles[indexFileForMerge]);
     int minimum = minNumberSeries();
@@ -66,46 +66,40 @@ void Draining::funcForMerging(){
       }
     }
     int count =0;//number merged series
-    string boof0, boof1, boof2;
-    int num0, num1, num2;
-      getline(in0,boof0,'\n');
-      getline(in1,boof1,'\n');
-      getline(in2,boof2,'\n');
+    string s[3];
     while(count != minimum){
-      if(boof0=="."){
-        num0 = maxNumber;
-      }else{
-        num0 = atoi(boof0.c_str());
-      }
-      if(boof1=="."){
-        num1 = maxNumber;
-      }else{
-        num1 = atoi(boof1.c_str());
-      }
-      if(boof2=="."){
-        num2 = maxNumber;
-      }else{
-        num2 = atoi(boof2.c_str());
-      }
-
-     // here will be the merge process series
-    //
-    //
-    //
-     if(boof2=="." && boof0=="." && boof1=="."){
-       count++;
-     }
-    boof0 = "";
-    boof1 = "";
-    boof2 = "";
+      int x[3];// number from file
+    bool b[3];//was x[i] actually read
+    for(int i = 0; i < 3; i++)
+      b[i] = !!getline(in[i], s[i]);
+    for(int i = 0; i < 3; i++)
+      if(s[i] == ".")
+        b[i] = 0;
+      else
+        x[i] = stoi(s[i]);
+      
+    while(b[0] || b[1] || b[2])
+    {
+      int index = 0;
+      if(b[1] && (!b[index] || x[index] > x[1])) index = 1;
+      if(b[2] && (!b[index] || x[index] > x[2])) index = 2;
+      out << x[index] << '\n';
+      b[index] = !!getline(in[index], s[index]);
+      if(s[index] == ".")
+        b[index] = 0;
+      else
+        x[index] = stoi(s[index]);
     }
-    positions[sources[0]] = in0.tellg();
-    positions[sources[1]] = in1.tellg();
-    positions[sources[2]] = in2.tellg();
+    out << ".\n";
+      count++;
+    }
+    positions[sources[0]] = in[0].tellg();
+    positions[sources[1]] = in[1].tellg();
+    positions[sources[2]] = in[2].tellg();
     positions[indexFileForMerge] =0;
     indexFileForMerge = indexNextFileForMerg;
     sources.clear();
-    in0.close(); in1.close(); in2.close(); out.close();
+    in[0].close(); in[1].close(); in[2].close(); out.close();
     numberSeriesInFileS.clear();
   }
 }
