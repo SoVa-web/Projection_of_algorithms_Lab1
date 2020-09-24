@@ -66,15 +66,43 @@ void Draining::funcForMerging(){
       }
     }
     int count =0;//number merged series
+    string boof0, boof1, boof2;
+    int num0, num1, num2;
+      getline(in0,boof0,'\n');
+      getline(in1,boof1,'\n');
+      getline(in2,boof2,'\n');
     while(count != minimum){
+      if(boof0=="."){
+        num0 = maxNumber;
+      }else{
+        num0 = atoi(boof0.c_str());
+      }
+      if(boof1=="."){
+        num1 = maxNumber;
+      }else{
+        num1 = atoi(boof1.c_str());
+      }
+      if(boof2=="."){
+        num2 = maxNumber;
+      }else{
+        num2 = atoi(boof2.c_str());
+      }
+
      // here will be the merge process series
     //
     //
-    // 
+    //
+     if(boof2=="." && boof0=="." && boof1=="."){
+       count++;
+     }
+    boof0 = "";
+    boof1 = "";
+    boof2 = "";
     }
     positions[sources[0]] = in0.tellg();
     positions[sources[1]] = in1.tellg();
     positions[sources[2]] = in2.tellg();
+    positions[indexFileForMerge] =0;
     indexFileForMerge = indexNextFileForMerg;
     sources.clear();
     in0.close(); in1.close(); in2.close(); out.close();
