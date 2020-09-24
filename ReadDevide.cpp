@@ -78,8 +78,8 @@ void ReadDevide::devideForFirstPhase(vector<int> sequence){
                         boof1=boof2;
                         fout<<boof1;
                         fout<<"\n";}}
-                             fout<<".";
-                             now++;
+                             //fout<<".";
+                             //now++;
              }else{
                   while(now<sequence[sequence.size()-t-1] ){
                     if(!fin.eof()){
