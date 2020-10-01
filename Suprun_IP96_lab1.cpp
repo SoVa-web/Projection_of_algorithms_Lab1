@@ -3,6 +3,7 @@
 #include<string>
 #include<fstream>
 #include<vector>
+#include<cstdio>
 
 using namespace std;
 
@@ -168,7 +169,7 @@ void SystemOfFiles::merging(){
     positions[i] = 0;
   }
   while (!checkResult()){
-    
+    count = 0;
     for(int i =0; i < numberHelpFiles; i++){//файли які зливають
       if(arraySeries[i] != 0){
          indexMerge.push_back(i);
@@ -176,37 +177,40 @@ void SystemOfFiles::merging(){
         index = i;
         }
     }
+     //+cout<<indexMerge.size()<<endl;
     ifstream read[indexMerge.size()];
     ofstream write0;
-    write0.open(setFiles[index]);
-    cout<<setFiles[index];
+    write0.open(setFiles[index], std::ofstream::out | std::ofstream::trunc);
     write0.seekp(0,ios::beg);
     for(int i =0; i < indexMerge.size(); i++){//відкриваємо ці файли й переносимо покажчики
       read[i].open(setFiles[indexMerge[i]]);
+      cout<<setFiles[indexMerge[i]]<<endl;
       read[i].seekg(positions[indexMerge[i]],ios::beg);
+      //cout<<positions[indexMerge[i]]<<endl;cout<<setFiles[indexMerge[i]]<<endl;
     }
     while(count<minSeries){//зливаємо серії
-      bool needRead[indexMerge.size()];//чи потрібно читати далі
-      int setNumber[indexMerge.size()];//прочитаний набір чисел
+      vector<bool> needRead;//чи потрібно читати далі
+      vector<int> setNumber;//прочитаний набір чисел
       for(int i =0; i < indexMerge.size(); i++){//початкове читання набору
-        needRead[i] = false;
+        needRead.push_back(false);
         string boof;
           getline(read[i], boof);
           if(boof == "."){
-            setNumber[i] = maxNumber;
+            setNumber.push_back(maxNumber);
             needRead[i] = false;
           }else{
-            setNumber[i]=atoi(boof.c_str());
+            setNumber.push_back(atoi(boof.c_str()));
             needRead[i] = false;
           }
       }
       int k =0;
-      while (k<indexMerge.size()){//порівнюємо числа
-      //cout<<777;
-      k =0;
-         for(int i =0; i < indexMerge.size(); i++){//читаємо число або пусту серію
-        if(needRead[i] == true){
-          string boof;
+      //cout<<indexMerge.size()<<endl;
+      while (k != indexMerge.size()){//порівнюємо числа
+      k=0;
+      ////
+      for (int  i = 0; i < indexMerge.size(); i++){
+        if(needRead[i]){
+         string boof;
           getline(read[i], boof);
           if(boof == "."){
             setNumber[i] = maxNumber;
@@ -216,43 +220,43 @@ void SystemOfFiles::merging(){
             needRead[i] = false;
           }
         }
+      }
+      int minIn;
+      int minNum = setNumber[0];
+      for(int i =0; i < indexMerge.size(); i++){//знаходимо мінімальний елемент масиву
+        if(minNum>=setNumber[i]){
+          minNum = setNumber[i];
+          
+          minIn = i;
         }
-         int minNumber;
-         for(int i =0; i < indexMerge.size(); i++){
-           if(indexMerge[i] != maxNumber){
-             minNumber = indexMerge[i];
-           }
-         }
-         int j;
-         for (int i = 0; i < indexMerge.size(); i++){
-           if(setNumber[i]<=minNumber && setNumber[i] != maxNumber){
-             minNumber = setNumber[i];
-             j =i;
-           }
-         }
-         if(setNumber[j] != maxNumber){
-           needRead[j] = true;
-         write0<<to_string(minNumber)<<"\n";
-         write0<<9999;
-         cout<<minNumber;
-         }
-
-        for(int i =0; i < indexMerge.size(); i++){
+      }//cout<<777<<"min"<<minNum<<endl;//cout<<minNum<<endl;
+      if(minNum != maxNumber && minNum != 0){
+        write0<<minNum<<"\n";
+        needRead[minIn] = true;
+      }=
+      for (int i = 0; i < indexMerge.size(); i++){
         if(setNumber[i] == maxNumber)
         k++;
-        }
-        if(k == indexMerge.size())
-          break;
       }
+      
+      ////
+      }
+      write0<<"."<<"\n";
+      needRead.clear();
+      setNumber.clear();
       count++;
+      
     }
-    ///
-    for(int i =0; i < indexMerge.size(); i++){//закриваємо ці файли, віднімаємо серії, оновлюємо покажчики
-      read[i].close();
+     
+    for(int i =0; i < indexMerge.size(); i++){
+      //cout<<arraySeries[indexMerge[i]]<<endl;//закриваємо ці файли, віднімаємо серії, оновлюємо покажчики
       arraySeries[indexMerge[i]]-=minSeries;
+
       positions[indexMerge[i]] = read[i].tellg();
+      read[i].close();
     }
     arraySeries[index] = minSeries;
+    //cout<<minSeries<<endl;
     write0.close();
     positions[index] = 0;
     minSeries = calculationMinNumberSeries();
